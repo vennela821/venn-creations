@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Venn Creations | Badugu Vennela — Web Designer &amp; Full-Stack Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #090b10;
+      --surface: #121622;
+      --surface-hover: #181e2f;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #8b5cf6;
+      --accent-2: #06b6d4;
+      --pink: #f43f5e;
+      --border: #22293d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .brand-font {
+      font-family: "Syne", sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Ambient Orbs */
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-25px, 20px) scale(1.08); }
+    }
+    .orb-1 {
+      position: fixed; top: -140px; right: -100px; width: 460px; height: 460px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%);
+      pointer-events: none; z-index: -1; animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb-2 {
+      position: fixed; bottom: -160px; left: -120px; width: 440px; height: 440px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.18), transparent 70%);
+      pointer-events: none; z-index: -1; animation: orbFloat 10s ease-in-out infinite reverse;
+    }
+
+    /* Scroll Reveal */
+    .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.animate-ready { opacity: 0; transform: translateY(28px); }
+    .reveal.animate-ready.visible { opacity: 1; transform: translateY(0); }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9, 11, 16, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 6%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-family: "Syne", sans-serif;
+      font-size: 1.35rem; font-weight: 800; color: var(--text);
+      display: flex; align-items: center; gap: 0.45rem;
+    }
+    .logo span {
+      background: linear-gradient(90deg, #a78bfa, #22d3ee);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    nav a {
+      margin-left: 1.8rem; text-decoration: none; color: var(--muted);
+      font-size: 0.92rem; font-weight: 600; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      color: #ffffff; padding: 0.8rem 1.55rem; border-radius: 12px;
+      text-decoration: none; font-weight: 700; font-size: 0.92rem;
+      border: none; cursor: pointer;
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(139, 92, 246, 0.45);
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.03); color: var(--text);
+      padding: 0.78rem 1.45rem; border-radius: 12px;
+      text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      border: 1px solid var(--border); transition: 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent-2); color: var(--accent-2); transform: translateY(-2px); }
+
+    /* Hero */
+    .hero {
+      padding: 5.5rem 6% 4.5rem;
+      max-width: 1140px; margin: auto;
+    }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(139, 92, 246, 0.14); color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.32);
+      padding: 0.38rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700;
+      margin-bottom: 1.4rem;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+    .hero h1 {
+      font-size: 3.5rem; line-height: 1.08; margin-bottom: 1.2rem; max-width: 860px;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #a78bfa, #22d3ee, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: var(--muted); font-size: 1.1rem; max-width: 650px; margin-bottom: 2.2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Sections & Cards */
+    section { padding: 4.5rem 6%; max-width: 1140px; margin: auto; }
+    .section-head { margin-bottom: 2.6rem; }
+    .section-head span {
+      color: var(--accent-2); font-size: 0.8rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1.2px;
+    }
+    .section-head h2 { font-size: 2.3rem; margin-top: 0.3rem; }
+    .section-head p { color: var(--muted); margin-top: 0.4rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.6rem; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 1.85rem; display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(139, 92, 246, 0.55);
+      background: var(--surface-hover);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+    .card-tag {
+      display: inline-block; font-size: 0.74rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--accent-2); margin-bottom: 0.6rem;
+    }
+    .card h3 { font-size: 1.38rem; margin-bottom: 0.5rem; }
+    .card p { color: var(--muted); font-size: 0.93rem; margin-bottom: 1.25rem; }
+    .tech-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.3rem; }
+    .tech-pill {
+      font-size: 0.76rem; padding: 0.25rem 0.65rem; border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04); color: #cbd5e1; border: 1px solid var(--border);
+    }
+    .card-link {
+      color: #a78bfa; text-decoration: none; font-weight: 700; font-size: 0.9rem;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .card-link:hover { color: var(--accent-2); }
+
+    /* Services */
+    .service-price {
+      font-family: "Syne", sans-serif;
+      font-size: 1.65rem; font-weight: 800; color: var(--text); margin: 0.6rem 0;
+    }
+    .service-list { list-style: none; margin-bottom: 1.5rem; }
+    .service-list li {
+      color: var(--muted); font-size: 0.9rem; padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Skills */
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .skill-chip {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.62rem 1.15rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+      transition: 0.2s;
+    }
+    .skill-chip:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    /* Contact Box */
+    .contact-box {
+      background: linear-gradient(145deg, #121622, #191f32);
+      border: 1px solid var(--border); border-radius: 22px;
+      padding: 3rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; align-items: center;
+    }
+    .form-group { margin-bottom: 1rem; }
+    input, select, textarea {
+      width: 100%; padding: 0.8rem 1rem; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      font-family: inherit; font-size: 0.95rem;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+    footer {
+      text-align: center; padding: 2.5rem 6% 5rem; color: var(--muted);
+      border-top: 1px solid var(--border); margin-top: 3rem; font-size: 0.9rem;
+    }
+
+    /* ==========================================
+       INTERACTIVE CHIBI MASCOT ("CHINNA BOMMA")
+       ========================================== */
+    @keyframes idleBob {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
+    }
+    @keyframes excitedJump {
+      0% { transform: translateY(0) scale(1); }
+      25% { transform: translateY(-24px) scale(1.08) rotate(-6deg); }
+      50% { transform: translateY(-8px) scale(1.04) rotate(6deg); }
+      75% { transform: translateY(-18px) scale(1.06) rotate(-4deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    @keyframes armWave {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-28deg); }
+    }
+    @keyframes sparklePop {
+      0% { opacity: 0; transform: scale(0.4) translateY(0); }
+      50% { opacity: 1; transform: scale(1.15) translateY(-10px); }
+      100% { opacity: 0; transform: scale(0.8) translateY(-22px); }
+    }
+
+    .mascot-dock {
+      position: fixed; bottom: 20px; right: 22px; z-index: 999;
+      display: flex; flex-direction: column; align-items: flex-end;
+      user-select: none;
+    }
+    .mascot-bubble {
+      background: rgba(18, 22, 34, 0.95);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      color: #f8fafc;
+      padding: 0.55rem 0.95rem;
+      border-radius: 14px 14px 4px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      max-width: 210px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .mascot-body-wrap {
+      width: 82px; height: 92px;
+      cursor: pointer;
+      animation: idleBob 3s ease-in-out infinite;
+      position: relative;
+      filter: drop-shadow(0 12px 18px rgba(139, 92, 246, 0.35));
+    }
+    .mascot-body-wrap.excited {
+      animation: excitedJump 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .mascot-body-wrap.excited .left-arm {
+      transform-origin: 24px 58px;
+      animation: armWave 0.35s ease-in-out infinite;
+    }
+    .mascot-body-wrap.excited .right-arm {
+      transform-origin: 66px 58px;
+      animation: armWave 0.35s ease-in-out infinite reverse;
+    }
+    .sparkle-burst {
+      position: absolute; top: -10px; left: 8px;
+      font-size: 1.1rem; pointer-events: none; opacity: 0;
+    }
+    .mascot-body-wrap.excited .sparkle-burst {
+      animation: sparklePop 0.8s ease forwards;
+    }
+
+    @media (max-width: 780px) {
+      .hero h1 { font-size: 2.35rem; }
+      .contact-box { grid-template-columns: 1fr; padding: 2rem; }
+      nav { display: none; }
+      .mascot-dock { bottom: 14px; right: 14px; }
+      .mascot-body-wrap { width: 70px; height: 78px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb-1"></div>
+  <div class="orb-2"></div>
+
+  <header>
+    <div class="logo">✦ Venn <span>Creations</span></div>
+    <nav>
+      <a href="#client-demos">Client Demos</a>
+      <a href="#projects">Full-Stack &amp; AI</a>
+      <a href="#services">Packages</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn excite-trigger" data-msg="Yay! Let's build your site! 🚀" href="#contact">Hire Me</a>
+  </header>
+
+  <div class="hero">
+    <div class="status-pill"><span class="dot"></span> Open for Freelance Websites &amp; Creative Web Builds</div>
+    <h1>Welcome to <span class="gradient-text">Venn Creations</span> — Websites Crafted with Code &amp; Personality.</h1>
+    <p>Built by <strong>Badugu Vennela</strong> (2nd-Year CSE, KL University &bull; 9.54 CGPA). I design fast, animated websites, e-commerce storefronts, and Python/FastAPI applications that turn visitors into customers.</p>
+    <div class="hero-actions">
+      <a class="btn excite-trigger" data-msg="Ooh! Checking my live demos! ✨" href="#client-demos">Explore Creations</a>
+      <a class="btn-outline excite-trigger" data-msg="Visiting my GitHub repos! 💻" href="https://github.com/vennela821" target="_blank">GitHub</a>
+      <a class="btn-outline excite-trigger" data-msg="Let's connect on LinkedIn! 🤝" href="https://www.linkedin.com/in/vennela-badugu-b9388936a/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Commercial Website Showcase -->
+  <section id="client-demos" class="reveal">
+    <div class="section-head">
+      <span>Live Storefronts &amp; Demos</span>
+      <h2>Websites Built by Venn Creations</h2>
+      <p>Interactive, mobile-first business websites with WhatsApp ordering, calculators, and custom aesthetics</p>
+    </div>
+    <div class="grid">
+      <div class="card excite-hover" data-msg="Handmade jewelry storefront! 💎">
+        <div>
+          <span class="card-tag">E-Commerce &amp; Artisanal Brand</span>
+          <h3>D Creations — Handmade Jewelry</h3>
+          <p>Interactive storefront for bespoke silk thread bangles, terracotta sets, and bridal jewelry featuring category filtering and a live WhatsApp order bag.</p>
+          <div class="tech-row">
+            <span class="tech-pill">HTML5 / CSS3</span>
+            <span class="tech-pill">Interactive Cart</span>
+            <span class="tech-pill">WhatsApp Checkout</span>
+          </div>
+        </div>
+        <!-- Paste your deployed D Creations Netlify URL in href -->
+        <a class="card-link" href="#" target="_blank">Live Website &rarr;</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="Yummy! Cake price calculator! 🎂">
+        <div>
+          <span class="card-tag">Luxury Patisserie &amp; Bakery</span>
+          <h3>Artisanal Cake Studio Website</h3>
+          <p>Editorial typography, smooth scroll animations, category filters, and an interactive cake weight &amp; flavour price estimator connected to WhatsApp.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Animations</span>
+            <span class="tech-pill">Price Estimator</span>
+            <span class="tech-pill">WhatsApp API</span>
+          </div>
+        </div>
+        <!-- Paste your deployed Cake Studio Netlify URL in href -->
+        <a class="card-link" href="#" target="_blank">Live Demo &rarr;</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="Bridal couture & Google reviews! 👗">
+        <div>
+          <span class="card-tag">Fashion &amp; Bridal Couture</span>
+          <h3>Designer Boutique &amp; Studio Site</h3>
+          <p>Custom bridal lookbook layout with verified Google Reviews integration and occasion-based consultation booking.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Responsive UI</span>
+            <span class="tech-pill">Google Reviews</span>
+            <span class="tech-pill">Lead Form</span>
+          </div>
+        </div>
+        <!-- Paste your deployed Boutique Netlify URL in href -->
+        <a class="card-link" href="#" target="_blank">Live Demo &rarr;</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="BHK interior cost estimator! 🏡">
+        <div>
+          <span class="card-tag">Architecture &amp; Interiors</span>
+          <h3>Interior Design Studio Portfolio</h3>
+          <p>Filterable room gallery (Living, Modular Kitchen, Commercial) paired with an instant BHK turnkey budget calculator.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Live Estimator</span>
+            <span class="tech-pill">Filterable Grid</span>
+            <span class="tech-pill">Mobile-First</span>
+          </div>
+        </div>
+        <!-- Paste your deployed Interior Netlify URL in href -->
+        <a class="card-link" href="#" target="_blank">Live Demo &rarr;</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="Gym & fitness dark mode UI! 💪">
+        <div>
+          <span class="card-tag">Health &amp; Fitness</span>
+          <h3>Modern Gym &amp; Fitness Landing Page</h3>
+          <p>High-contrast dark UI featuring training zones, transparent membership tiers, and a 1-day free trial pass booking flow.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Dark UI</span>
+            <span class="tech-pill">Pricing Cards</span>
+            <span class="tech-pill">WhatsApp Booking</span>
+          </div>
+        </div>
+        <!-- Paste your deployed Gym Netlify URL in href -->
+        <a class="card-link" href="#" target="_blank">Live Demo &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engineering & Full-Stack Projects -->
+  <section id="projects" class="reveal">
+    <div class="section-head">
+      <span>Software Engineering</span>
+      <h2>Full-Stack, AI &amp; Data Projects</h2>
+      <p>End-to-end applications built with Python, FastAPI, MongoDB, and Machine Learning</p>
+    </div>
+    <div class="grid">
+      <div class="card excite-hover" data-msg="AI safety for elders! 🛡️">
+        <div>
+          <span class="card-tag">AI &amp; Digital Safety</span>
+          <h3>BhashaSetu</h3>
+          <p>Multilingual digital safety web app helping elderly users understand bank alerts, bills, and suspicious messages in simple language.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Google GenAI</span>
+          </div>
+        </div>
+        <a class="card-link" href="https://github.com/vennela821" target="_blank">View on GitHub &rarr;</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="Smart civic tech! ♻️">
+        <div>
+          <span class="card-tag">Smart Civic Tech</span>
+          <h3>WasteWise Management System</h3>
+          <p>Smart waste monitoring platform tracking dustbin fill levels and area-wise citizen complaints for cleaner neighborhoods.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Web App</span>
+            <span class="tech-pill">Backend API</span>
+            <span class="tech-pill">Dashboard</span>
+          </div>
+        </div>
+        <a class="card-link" href="https://github.com/vennela821" target="_blank">View on GitHub &rarr;</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="15 EDA tasks + ML models! 📊">
+        <div>
+          <span class="card-tag">Machine Learning</span>
+          <h3>CreditFair ML Predictor</h3>
+          <p>Interactive credit risk prediction web application with 15 Exploratory Data Analysis (EDA) tasks and selectable execution modes.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Scikit-Learn</span>
+            <span class="tech-pill">HTML / CSS</span>
+          </div>
+        </div>
+        <a class="card-link" href="https://github.com/vennela821" target="_blank">View on GitHub &rarr;</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">E-Commerce &amp; Artisanal Brand</span>
+          <h3>D Creations — Handmade Jewelry</h3>
+          <p>Interactive storefront for bespoke silk thread bangles, terracotta sets, and bridal jewelry featuring category filtering and a live WhatsApp order bag.</p>
+          <div class="tech-row">
+            <span class="tech-pill">HTML5 / CSS3</span>
+            <span class="tech-pill">JavaScript Cart</span>
+            <span class="tech-pill">WhatsApp Checkout</span>
+          </div>
+        </div>
+        <a class="card-link" href="https://d-creations-ten.vercel.app/" target="_blank">Live Website &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Freelance Packages -->
+  <section id="services" class="reveal">
+    <div class="section-head">
+      <span>Work With Venn Creations</span>
+      <h2>Website Packages for Businesses &amp; Creators</h2>
+      <p>Fast turnaround, custom animations, and zero technical stress</p>
+    </div>
+    <div class="grid">
+      <div class="card excite-hover" data-msg="Great starter site! ⚡">
+        <div>
+          <span class="card-tag">Starter Landing Page</span>
+          <div class="service-price">₹3,999</div>
+          <ul class="service-list">
+            <li>Single-Page Modern Responsive Website</li>
+            <li>Direct WhatsApp Booking &amp; Call Buttons</li>
+            <li>Google Maps Location &amp; Reviews Section</li>
+            <li>Delivered in 2–3 Days</li>
+          </ul>
+        </div>
+        <a class="btn excite-trigger" data-msg="Let's build your Starter site! 🎉" href="#contact">Get Started</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="Most popular package! 🌟" style="border-color: var(--accent);">
+        <div>
+          <span class="card-tag">Business Pro + Interactive Tools</span>
+          <div class="service-price">₹6,999</div>
+          <ul class="service-list">
+            <li>Custom Multi-Section Brand Website</li>
+            <li>Interactive Price / Order Calculator</li>
+            <li>Filterable Photo Gallery &amp; Animations</li>
+            <li>Free Deployment &amp; Google Profile Setup</li>
+          </ul>
+        </div>
+        <a class="btn excite-trigger" data-msg="Awesome choice! Let's start! 💖" href="#contact">Most Popular</a>
+      </div>
+
+      <div class="card excite-hover" data-msg="Custom full-stack & AI! 🧠">
+        <div>
+          <span class="card-tag">Custom Web App / Backend</span>
+          <div class="service-price">Custom Quote</div>
+          <ul class="service-list">
+            <li>Full-Stack Web App (FastAPI / MongoDB)</li>
+            <li>Authentication, Dashboards &amp; REST APIs</li>
+            <li>AI / LLM Feature Integration</li>
+            <li>Ideal for Startups &amp; MVPs</li>
+          </ul>
+        </div>
+        <a class="btn-outline excite-trigger" data-msg="Tell me about your app idea! 💡" style="width: 100%;" href="#contact">Discuss Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="reveal">
+    <div class="section-head">
+      <span>Technical Toolkit</span>
+      <h2>Languages, Frameworks &amp; Tools</h2>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-chip">HTML5 &amp; Modern CSS3</div>
+      <div class="skill-chip">JavaScript</div>
+      <div class="skill-chip">Python</div>
+      <div class="skill-chip">FastAPI &amp; Swagger</div>
+      <div class="skill-chip">Java</div>
+      <div class="skill-chip">C Programming</div>
+      <div class="skill-chip">MongoDB</div>
+      <div class="skill-chip">Git &amp; GitHub</div>
+      <div class="skill-chip">Vercel &amp; Netlify</div>
+      <div class="skill-chip">Google GenAI API</div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="reveal">
+    <div class="contact-box">
+      <div>
+        <span class="card-tag">Start a Project</span>
+        <h2 style="font-size: 2.1rem; margin: 0.4rem 0 0.8rem;">Want a Website from Venn Creations?</h2>
+        <p style="color: var(--muted); margin-bottom: 1.5rem;">Message directly on WhatsApp or email—share your idea and get a live preview within days.</p>
+        <p style="font-size: 0.92rem; color: #cbd5e1;">
+          <strong>Email:</strong> badugu.vennela28@gmail.com<br />
+          <strong>Location:</strong> Vijayawada / Guntur, Andhra Pradesh (Available Remote)
+        </p>
+      </div>
+      <div>
+        <div class="form-group">
+          <input type="text" id="senderName" placeholder="Your Name / Business Name" />
+        </div>
+        <div class="form-group">
+          <select id="projectType">
+            <option>Business / Store Website (₹3,999 – ₹6,999)</option>
+            <option>Handmade Brand / E-Commerce Storefront</option>
+            <option>Personal Portfolio / Creator Site</option>
+            <option>Custom Web App / Startup MVP</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea id="projectDetails" rows="3" placeholder="Briefly describe what you need..."></textarea>
+        </div>
+        <button class="btn excite-trigger" data-msg="Sending to Vennela's WhatsApp! 🎉" style="width: 100%;" onclick="sendWhatsApp()">Message on WhatsApp</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 <strong>Venn Creations</strong> &bull; Crafted by Badugu Vennela</p>
+  </footer>
+
+  <!-- Interactive Chibi Mascot ("Chinna Bomma") -->
+  <div class="mascot-dock" id="mascotDock">
+    <div class="mascot-bubble" id="mascotBubble">Hi! I'm Venn's mini bot ✨ Move around!</div>
+    <div class="mascot-body-wrap" id="mascotWrap" title="Click me!">
+      <div class="sparkle-burst">✨💖✨</div>
+      <svg viewBox="0 0 90 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <!-- Soft Glow Shadow -->
+        <ellipse cx="45" cy="94" rx="22" ry="4.5" fill="rgba(139,92,246,0.35)" />
+        <!-- Left & Right Cute Arms -->
+        <rect class="left-arm" x="14" y="56" width="12" height="20" rx="6" fill="#a78bfa" />
+        <rect class="right-arm" x="64" y="56" width="12" height="20" rx="6" fill="#a78bfa" />
+        <!-- Body -->
+        <rect x="24" y="52" width="42" height="34" rx="16" fill="#6366f1" />
+        <rect x="33" y="60" width="24" height="16" rx="6" fill="#1e1b4b" />
+        <circle cx="45" cy="68" r="3" fill="#22d3ee" />
+        <!-- Antenna -->
+        <line x1="45" y1="14" x2="45" y2="5" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" />
+        <circle cx="45" cy="4" r="4" fill="#f472b6" />
+        <!-- Head -->
+        <rect x="18" y="14" width="54" height="42" rx="20" fill="#f8fafc" stroke="#8b5cf6" stroke-width="2.5" />
+        <!-- Visor / Face Screen -->
+        <rect x="24" y="21" width="42" height="26" rx="12" fill="#0f172a" />
+        <!-- Blush Cheeks -->
+        <ellipse cx="30" cy="39" rx="4" ry="2.2" fill="#f472b6" opacity="0.75" />
+        <ellipse cx="60" cy="39" rx="4" ry="2.2" fill="#f472b6" opacity="0.75" />
+        <!-- Moving Eyes Group -->
+        <g id="mascotEyes">
+          <circle cx="36" cy="32" r="4.2" fill="#22d3ee" />
+          <circle cx="37.2" cy="30.8" r="1.4" fill="#ffffff" />
+          <circle cx="54" cy="32" r="4.2" fill="#22d3ee" />
+          <circle cx="55.2" cy="30.8" r="1.4" fill="#ffffff" />
+        </g>
+        <!-- Cute Smile -->
+        <path id="mascotMouth" d="M 40 39 Q 45 43 50 39" stroke="#f8fafc" stroke-width="2.2" fill="none" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    // Scroll Reveal
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('animate-ready');
+        observer.observe(el);
+      });
+    }
+
+    // Mascot Logic ("Chinna Bomma")
+    const mascotWrap = document.getElementById('mascotWrap');
+    const mascotBubble = document.getElementById('mascotBubble');
+    const mascotEyes = document.getElementById('mascotEyes');
+    const mascotMouth = document.getElementById('mascotMouth');
+    let exciteTimeout;
+
+    function triggerExcite(message) {
+      if (message) mascotBubble.innerText = message;
+      mascotWrap.classList.remove('excited');
+      void mascotWrap.offsetWidth; // restart animation
+      mascotWrap.classList.add('excited');
+      mascotMouth.setAttribute('d', 'M 38 38 Q 45 46 52 38'); // big happy smile
+
+      clearTimeout(exciteTimeout);
+      exciteTimeout = setTimeout(() => {
+        mascotWrap.classList.remove('excited');
+        mascotMouth.setAttribute('d', 'M 40 39 Q 45 43 50 39');
+      }, 950);
+    }
+
+    // 1. Eyes follow cursor smoothly
+    document.addEventListener('mousemove', (e) => {
+      const rect = mascotWrap.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const dx = Math.max(-3.5, Math.min(3.5, (e.clientX - centerX) / 80));
+      const dy = Math.max(-2.5, Math.min(2.5, (e.clientY - centerY) / 80));
+      mascotEyes.setAttribute('transform', `translate(${dx}, ${dy})`);
+    });
+
+    // 2. React when hovering over project/package cards
+    document.querySelectorAll('.excite-hover').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        triggerExcite(card.getAttribute('data-msg'));
+      });
+    });
+
+    // 3. React when clicking buttons
+    document.querySelectorAll('.excite-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        triggerExcite(btn.getAttribute('data-msg'));
+      });
+    });
+
+    // 4. React when user types in the contact form
+    ['senderName', 'projectDetails'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('focus', () => triggerExcite("Ooh, typing a message! ✍️"));
+      }
+    });
+
+    // 5. React on scroll milestones
+    let lastSection = '';
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      let current = 'top';
+      if (y > 350 && y <= 1100) current = 'demos';
+      else if (y > 1100 && y <= 1750) current = 'projects';
+      else if (y > 1750 && y <= 2400) current = 'services';
+      else if (y > 2400) current = 'contact';
+
+      if (current !== lastSection) {
+        lastSection = current;
+        if (current === 'demos') triggerExcite("Check out these live websites! 🎨");
+        if (current === 'projects') triggerExcite("Python, AI & ML projects! ⚡");
+        if (current === 'services') triggerExcite("Pick a website package! 🌟");
+        if (current === 'contact') triggerExcite("Say hi on WhatsApp! 💬");
+      }
+    });
+
+    // 6. Click directly on the bomma
+    const cheerLines = [
+      "Hehe! That tickles! ✨",
+      "Ready to build your website! 🚀",
+      "Venn Creations rocks! 💜",
+      "Need a custom site? Let's go! 🎉"
+    ];
+    mascotWrap.addEventListener('click', () => {
+      const randomLine = cheerLines[Math.floor(Math.random() * cheerLines.length)];
+      triggerExcite(randomLine);
+    });
+
+    function sendWhatsApp() {
+      const name = document.getElementById('senderName').value || 'there';
+      const type = document.getElementById('projectType').value;
+      const details = document.getElementById('projectDetails').value || 'Looking to discuss a website project.';
+      triggerExcite("Opening WhatsApp! 🚀");
+      const msg = `Hi Venn Creations (Vennela), I am ${name}. I visited your portfolio and I'm interested in: ${type}.\nDetails: ${details}`;
+      window.open(`https://wa.me/919912376038?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
